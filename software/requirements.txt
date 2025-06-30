@@ -1,4 +1,4 @@
-fastapi
-uvicorn[standard]==0.24.0
-paho-mqtt==1.6.1
-pydantic==2.5.0
+fastapi[standard]
+paho-mqtt
+python-dotenv
+
