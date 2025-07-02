@@ -11,7 +11,9 @@ class MQTTService:
     @classmethod
     def initialize(cls, app=None):
         """Initialize MQTT client with Flask app context"""
+        print("Initializing MQTT Service")
         if app:
+            print("MQTT Service initialized with app context")
             with app.app_context():
                 cls._client = mqtt.Client()
                 cls._client.username_pw_set(
@@ -23,12 +25,16 @@ class MQTTService:
                 cls._client.on_message = cls._on_message
                 
                 try:
+                    print("Connecting to MQTT broker...")
+                    cls._client.tls_set()  # Bắt buộc để dùng TLS với HiveMQ Cloud
                     cls._client.connect(
                         current_app.config.get('MQTT_BROKER_HOST'),
-                        current_app.config.get('MQTT_BROKER_PORT'),
+                        int(current_app.config.get('MQTT_BROKER_PORT')),
                         60
                     )
+                    print("MQTT broker connection established")
                     cls._client.loop_start()
+                    print("MQTT client loop started")
                 except Exception as e:
                     print(f"Failed to connect to MQTT broker: {e}")
     

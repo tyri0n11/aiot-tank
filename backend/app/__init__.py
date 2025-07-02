@@ -28,7 +28,7 @@ def create_app(config_class=Config):
     app.register_blueprint(device_bp)
     
     # Add a simple health check route
-    @app.route('/health')
+    @app.route('/')
     def health_check():
         return {'status': 'healthy', 'message': 'AI IoT Tank Backend is running!'}
     
