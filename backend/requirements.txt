@@ -1,4 +1,28 @@
-fastapi[standard]
-paho-mqtt
-python-dotenv
+# Flask core
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# Database
+Flask-SQLAlchemy==3.0.5
+SQLAlchemy==2.0.21
+
+# Authentication & Security
+Flask-Bcrypt==1.0.1
+Flask-JWT-Extended==4.5.3
+bcrypt==4.0.1
+
+# MQTT
+paho-mqtt==1.6.1
+
+# Environment
+python-dotenv==1.0.0
+
+# CORS (for frontend communication)
+Flask-CORS==4.0.0
+
+# Migration (optional)
+Flask-Migrate==4.0.5
+
+# Development
+flask-shell-ipython==0.5.3
 
