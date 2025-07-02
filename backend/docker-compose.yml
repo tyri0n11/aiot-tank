@@ -1,5 +1,31 @@
 version: '3.8'
+
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://devuser:devpass@db:5432/devdb
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - JWT_SECRET_KEY=dev-jwt-secret-change-in-production
+      - MQTT_BROKER_HOST=mqtt
+      - MQTT_BROKER_PORT=1883
+      - MQTT_USERNAME=iot_user
+      - MQTT_PASSWORD=iot_password
+    volumes:
+      - .:/app
+      - app_logs:/app/logs
+    depends_on:
+      - db
+      - mqtt
+    networks:
+      - aiot-network
+    restart: unless-stopped
+
   db:
     image: postgres:16
     restart: unless-stopped
@@ -11,6 +37,38 @@ services:
       - "15432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - aiot-network
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+    networks:
+      - aiot-network
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "18080:8080"
+    depends_on:
+      - db
+    networks:
+      - aiot-network
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  app_logs:
+  mosquitto_data:
+  mosquitto_logs:
+
+networks:
+  aiot-network:
+    driver: bridge
