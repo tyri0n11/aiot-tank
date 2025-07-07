@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
                 gutterBottom
                 sx={{ fontWeight: 'bold', color: 'primary.main' }}
               >
-                Welcome to AIoT Tank
+                Welcome to IoTank
               </Typography>
               <Typography
                 variant="body1"

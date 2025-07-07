@@ -7,7 +7,6 @@ import {
     Typography,
     Paper,
 } from '@mui/material';
-import bgVideo from '@/assets/background.mp4'
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
