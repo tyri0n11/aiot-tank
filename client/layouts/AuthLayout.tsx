@@ -1,7 +1,13 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import bgVideo from '@/assets/background.mp4'
+import { useAuth } from '../src/contexts/AuthContext'
 const AuthLayout: React.FC = () => {
+  const { isAuthenticated } = useAuth()
+  
+  if (isAuthenticated) {
+    return <Navigate to="/main" replace />
+  }
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <main className="w-full max-w-md p-6 bg-white rounded shadow-md">

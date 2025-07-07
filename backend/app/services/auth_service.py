@@ -1,6 +1,6 @@
 from app.models.user import User
 from app.extensions import db, bcrypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 from datetime import timedelta
 
 class AuthService:
@@ -19,5 +19,6 @@ class AuthService:
         user = User.query.filter_by(email=email).first()
         if user and user.password_hash and bcrypt.check_password_hash(user.password_hash, password):
             access_token = create_access_token(identity=user.id, expires_delta=timedelta(days=1))
-            return access_token, user
-        return None, None
+            refresh_token = create_refresh_token(identity=user.id)
+            return access_token, refresh_token, user
+        return None, None, None

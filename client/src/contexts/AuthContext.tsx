@@ -13,12 +13,12 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const navigate = useNavigate() // Giả sử bạn đang sử dụng react-router-dom để điều hướng
+  const navigate = useNavigate()
   const login = async (email: string, password: string) => {
     try {
       await apiLogin(email, password)
       setIsAuthenticated(true)
-      navigate('/main') // Chuyển hướng đến trang chính sau khi đăng nhập thành công
+      navigate('/main')
     } catch (error) {
       setIsAuthenticated(false)
       throw error

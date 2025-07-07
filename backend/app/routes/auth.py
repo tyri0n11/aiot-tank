@@ -23,7 +23,7 @@ def login():
     password = data.get('password')
     if not all([email, password]):
         return jsonify({'error': 'Missing fields'}), 400
-    token, user = AuthService.login(email, password)
-    if not token:
+    access_token, refresh_token, user = AuthService.login(email, password)
+    if not access_token:
         return jsonify({'error': 'Invalid credentials'}), 401
-    return jsonify({'access_token': token, 'user': user.to_dict()})
+    return jsonify({'access_token': access_token, 'refresh_token': refresh_token, 'user': user.to_dict()})
