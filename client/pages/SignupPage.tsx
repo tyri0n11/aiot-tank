@@ -8,6 +8,7 @@ Button,
 Typography,
 Paper,
 } from '@mui/material';
+import { register } from '../api/auth';
 
 const SignupPage: React.FC = () => {
 const [form, setForm] = useState({
@@ -22,8 +23,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    alert('Signup submitted!');
+    register(form.name, form.email, form.password);
 };
 
 return (

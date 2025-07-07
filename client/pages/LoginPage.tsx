@@ -7,15 +7,15 @@ import {
     Typography,
     Paper,
 } from '@mui/material';
-
+import { useAuth } from '../src/contexts/AuthContext'; // Assuming you have an AuthContext for authentication
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle login logic here
-        alert(`Email: ${email}\nPassword: ${password}`);
+        login(email, password);
     };
 
     return (

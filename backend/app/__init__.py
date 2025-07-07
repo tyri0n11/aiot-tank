@@ -23,10 +23,11 @@ def create_app(config_class=Config):
     from app.routes.user import user_bp
     from app.routes.mqtt import mqtt_bp
     from app.routes.device import device_bp
+    from app.routes.auth import auth_bp
     app.register_blueprint(user_bp)
     app.register_blueprint(mqtt_bp)
     app.register_blueprint(device_bp)
-    
+    app.register_blueprint(auth_bp)
     # Add a simple health check route
     @app.route('/')
     def health_check():
